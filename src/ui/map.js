@@ -1461,8 +1461,10 @@ class Map extends Camera {
     }
 
     _redoPlacement() {
-        this._pendingRedoPlacement = false;
-        this.style._redoPlacement();
+        if (this.style) {
+            this._pendingRedoPlacement = false;
+            this.style._redoPlacement();
+        }
     }
 
     _redoPlacementOnInterval() {
