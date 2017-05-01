@@ -3,7 +3,6 @@
 /_site
 /dist/mapbox-gl-dev.js
 /dist/mapbox-gl.js
-/dist-es6
 *.js.map
 node_modules
 npm-debug.log
