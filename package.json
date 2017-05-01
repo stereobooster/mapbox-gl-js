@@ -3,6 +3,7 @@
   "description": "A WebGL interactive maps library",
   "version": "0.36.0",
   "main": "dist/mapbox-gl.js",
+  "module": "dist-es6/index.js",
   "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
@@ -103,6 +104,7 @@
     "build-dev": "browserify src/index.js --debug --ignore-transform unassertify --standalone mapboxgl > dist/mapbox-gl-dev.js && tap --no-coverage test/build/dev.test.js",
     "watch-dev": "watchify src/index.js --debug --ignore-transform unassertify --standalone mapboxgl --outfile dist/mapbox-gl-dev.js --verbose",
     "build-min": "browserify src/index.js --debug --plugin [minifyify --map mapbox-gl.js.map --output dist/mapbox-gl.js.map] --standalone mapboxgl | derequire > dist/mapbox-gl.js && tap --no-coverage test/build/min.test.js",
+    "build-es6": "mkdir -p dist-es6 && flow-remove-types src/ --out-dir dist-es6",
     "build-token": "browserify debug/access_token.js --debug --transform envify > debug/access_token_generated.js",
     "build-benchmarks": "BENCHMARK_VERSION=\"$(git rev-parse --abbrev-ref HEAD) $(git rev-parse --short=7 HEAD)\" browserify bench/benchmarks.js --plugin [minifyify --no-map] --transform envify --outfile bench/benchmarks_generated.js --verbose",
     "watch-benchmarks": "BENCHMARK_VERSION=\"$(git rev-parse --abbrev-ref HEAD) $(git rev-parse --short=7 HEAD)\" watchify bench/benchmarks.js --plugin [minifyify --no-map] --transform envify --outfile bench/benchmarks_generated.js --verbose",
@@ -126,7 +128,7 @@
     "test-query": "node test/query.test.js",
     "test-flow": "flow .",
     "test-cov": "nyc --require=flow-remove-types/register --reporter=text-summary --reporter=lcov --cache run-s test-unit test-render test-query",
-    "prepublish": "in-publish && run-s build-dev build-min || not-in-publish",
+    "prepublish": "in-publish && run-s build-dev build-min build-es6 || not-in-publish",
     "postinstall": "cd src/style-spec && yarn || npm install"
   }
 }
